@@ -1369,3 +1369,19 @@ section,
   background: #e8f6e8;
   color: #198754;
 }
+
+
+/* NavMenu Update*/
+#navmenu a.active,
+#navmenu a.active i {
+  color: #159ddd !important; /* Highlight color */
+}
+
+#navmenu a.active {
+  font-weight: normal;
+}
+
+/* Optional: Add smooth transition */
+#navmenu a {
+  transition: color 0.3s ease;
+}
