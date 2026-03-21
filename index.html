@@ -1,376 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Keshav</title>
-  <link rel="canonical" href="https://keshavmalhotra.com/" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Keshav Malhotra — Mechatronics Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
 
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+/* =============================================
+   SITE CONFIG — edit these variables to restyle
+   ============================================= */
+:root {
+  --bg:        #f4f1eb;
+  --ink:       #0f0f0e;
+  --muted:     #8c8984;
+  --border:    #ddd9d2;
+  --surface:   #eceae3;
+  --accent:    #0f0f0e;
+  --accent-fg: #f4f1eb;
+  --tag-bg:    #e4e1da;
+  --serif:     'Instrument Serif', Georgia, serif;
+  --sans:      'Instrument Sans', system-ui, sans-serif;
+  --mono:      'DM Mono', monospace;
+  --nav-h:     64px;
+  --max:       1080px;
+  --gap:       48px;
+}
 
-  <!-- Favicons -->
-  <link href="assets/img/kfavicon-32x32.png" rel="icon">
-  <link href="assets/img/k-apple-touch-icon-180x180.png" rel="apple-touch-icon">
+/* =============================================
+   RESET
+   ============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+/* =============================================
+   NAV
+   ============================================= */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--gap);
+  background: rgba(244,241,235,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: var(--serif); font-size: 1.05rem; letter-spacing: -0.01em; }
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a { font-size: 13px; color: var(--muted); letter-spacing: 0.02em; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.nav-resume {
+  font-family: var(--mono) !important; font-size: 11px !important;
+  padding: 7px 14px; border: 1px solid var(--border); border-radius: 4px;
+  color: var(--ink) !important; transition: background 0.2s, border-color 0.2s, color 0.2s !important;
+}
+.nav-resume:hover { background: var(--accent) !important; color: var(--accent-fg) !important; border-color: var(--accent) !important; }
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.3s; }
+.mobile-menu {
+  display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  padding: 24px var(--gap); flex-direction: column; gap: 20px; z-index: 499;
+}
+.mobile-menu a { font-size: 15px; color: var(--muted); }
+.mobile-menu a:hover { color: var(--ink); }
+.mobile-menu.open { display: flex; }
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+/* =============================================
+   HERO
+   ============================================= */
+#hero {
+  min-height: 100svh; display: grid;
+  grid-template-columns: 1fr 1fr; padding-top: var(--nav-h);
+}
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px var(--gap); border-right: 1px solid var(--border);
+}
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 28px; opacity: 0; animation: up 0.7s 0.1s forwards;
+}
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(3.2rem, 6.5vw, 5.8rem);
+  line-height: 0.95; letter-spacing: -0.03em;
+  margin-bottom: 28px; opacity: 0; animation: up 0.7s 0.2s forwards;
+}
+.hero-name em {
+  font-style: italic; color: var(--muted);
+}
+.hero-desc {
+  font-size: 0.975rem; color: var(--muted); max-width: 400px;
+  line-height: 1.8; margin-bottom: 44px;
+  opacity: 0; animation: up 0.7s 0.3s forwards;
+}
+.hero-cta { display: flex; gap: 10px; flex-wrap: wrap; opacity: 0; animation: up 0.7s 0.4s forwards; }
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 11px 22px; font-size: 13px; font-weight: 400;
+  border-radius: 5px; border: none; cursor: pointer;
+  font-family: var(--sans); transition: all 0.2s;
+}
+.btn-dark { background: var(--accent); color: var(--accent-fg); }
+.btn-dark:hover { opacity: 0.82; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--border); }
+.btn-ghost:hover { border-color: var(--ink); transform: translateY(-1px); }
+.hero-right { position: relative; overflow: hidden; opacity: 0; animation: fadeIn 1s 0.5s forwards; }
+.hero-right img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; filter: grayscale(12%); }
+.hero-right::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 70%, rgba(244,241,235,0.18)); }
+.hero-scroll {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em;
+  color: var(--muted); text-transform: uppercase;
+  opacity: 0; animation: fadeIn 0.8s 1.4s forwards;
+}
+.hero-scroll-line { width: 1px; height: 36px; background: var(--border); animation: pulse 2s 1.6s ease-in-out infinite; }
 
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
+/* =============================================
+   SHARED
+   ============================================= */
+section { border-top: 1px solid var(--border); }
+.inner { max-width: var(--max); margin: 0 auto; padding: 96px var(--gap); }
+.sec-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 16px; margin-bottom: 52px;
+}
+.sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.sec-title { font-family: var(--serif); font-size: clamp(2rem, 3.8vw, 3rem); letter-spacing: -0.02em; line-height: 1.1; }
+
+/* =============================================
+   ABOUT
+   ============================================= */
+#about .inner { display: grid; grid-template-columns: 280px 1fr; gap: 80px; align-items: start; }
+.about-sticky { position: sticky; top: calc(var(--nav-h) + 24px); align-self: start; }
+.about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; border-radius: 3px; filter: grayscale(8%); margin-bottom: 20px; }
+.about-quick { display: flex; flex-direction: column; }
+.about-quick-item {
+  display: flex; align-items: center; gap: 10px; padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono); font-size: 11px; color: var(--muted); transition: color 0.2s;
+}
+.about-quick-item:hover { color: var(--ink); }
+.about-quick-item svg { flex-shrink: 0; opacity: 0.6; }
+.about-bio { font-size: 1.1rem; line-height: 1.9; margin-bottom: 52px; color: var(--ink); }
+.about-bio p + p { margin-top: 18px; }
+.skills-heading { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 48px; }
+.skill-cell { background: var(--surface); padding: 18px 20px; }
+.skill-cell-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.skill-cell-val { font-size: 0.875rem; line-height: 1.5; color: var(--ink); }
+
+/* =============================================
+   PORTFOLIO
+   ============================================= */
+#portfolio .inner { padding-bottom: 96px; }
+.portfolio-top { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 40px; }
+.filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-btn {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+  padding: 6px 14px; border-radius: 3px; border: 1px solid var(--border);
+  background: transparent; color: var(--muted); cursor: pointer; transition: all 0.18s;
+}
+.filter-btn:hover { color: var(--ink); border-color: var(--muted); }
+.filter-btn.active { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.pcard { position: relative; background: var(--surface); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: background 0.2s; overflow: hidden; }
+.pcard:hover { background: var(--bg); }
+.pcard.hidden { display: none; }
+.pcard-thumb-wrap { overflow: hidden; border-bottom: 1px solid var(--border); }
+.pcard-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; filter: grayscale(25%) brightness(0.9); transition: filter 0.4s, transform 0.5s; display: block; }
+.pcard:hover .pcard-thumb { filter: grayscale(0%) brightness(1); transform: scale(1.04); }
+.pcard-body { padding: 18px 20px 22px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.pcard-cat { font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.pcard-title { font-family: var(--serif); font-size: 1.05rem; letter-spacing: -0.01em; line-height: 1.25; }
+.pcard-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+.pcard-tag { font-family: var(--mono); font-size: 9px; padding: 3px 8px; background: var(--tag-bg); border: 1px solid var(--border); border-radius: 3px; color: var(--muted); }
+.pcard-arrow { position: absolute; bottom: 18px; right: 18px; color: var(--ink); opacity: 0; transform: translate(-4px, 4px); transition: opacity 0.2s, transform 0.2s; }
+.pcard:hover .pcard-arrow { opacity: 1; transform: translate(0,0); }
+
+/* =============================================
+   CONTACT
+   ============================================= */
+#contact .inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.contact-desc { color: var(--muted); font-size: 0.975rem; line-height: 1.8; margin-bottom: 40px; margin-top: 20px; }
+.contact-channels { display: flex; flex-direction: column; }
+.contact-channel { display: flex; align-items: center; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+.contact-channel:hover { color: var(--ink); }
+.contact-channel svg { flex-shrink: 0; opacity: 0.5; }
+.contact-channel strong { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; font-weight: 400; }
+.contact-channel span { font-size: 0.9rem; color: var(--ink); }
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.form-input, .form-textarea {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+  padding: 12px 14px; font-family: var(--sans); font-size: 0.9rem; font-weight: 300;
+  color: var(--ink); outline: none; transition: border-color 0.2s; width: 100%;
+}
+.form-input:focus, .form-textarea:focus { border-color: var(--ink); }
+.form-textarea { resize: vertical; min-height: 140px; }
+.form-status { font-family: var(--mono); font-size: 11px; color: var(--muted); min-height: 18px; }
+.form-status.ok  { color: #4a7c4e; }
+.form-status.err { color: #a0442a; }
+
+/* =============================================
+   FOOTER
+   ============================================= */
+footer {
+  border-top: 1px solid var(--border); padding: 32px var(--gap);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-family: var(--mono); font-size: 11px; color: var(--muted); transition: color 0.2s; }
+.footer-links a:hover { color: var(--ink); }
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+@keyframes up      { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+@keyframes pulse   { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+.reveal { opacity:0; transform:translateY(24px); transition: opacity 0.7s, transform 0.7s; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 900px) {
+  :root { --gap: 28px; }
+  #hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 60px var(--gap); border-right: none; border-bottom: 1px solid var(--border); }
+  .hero-right { height: 60vw; max-height: 420px; }
+  #about .inner { grid-template-columns: 1fr; gap: 48px; }
+  .about-sticky { position: static; }
+  .about-photo { aspect-ratio: 4/3; max-height: 320px; }
+  .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  #contact .inner { grid-template-columns: 1fr; gap: 48px; }
+}
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+  </style>
 </head>
+<body>
 
-<body class="index-page">
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">Keshav Malhotra</a>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a class="nav-resume" href="resume/Keshav_Malhotra_Software_Resume_2026.pdf" target="_blank" rel="noopener">Resume ↗</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#hero"      onclick="closeMobile()">Home</a>
+  <a href="#about"     onclick="closeMobile()">About</a>
+  <a href="#portfolio" onclick="closeMobile()">Work</a>
+  <a href="#contact"   onclick="closeMobile()">Contact</a>
+  <a href="resume/Keshav_Malhotra_Software_Resume_2026.pdf" target="_blank" rel="noopener">Resume ↗</a>
+</div>
 
-  <header id="header" class="header dark-background d-flex flex-column">
-    <i class="header-toggle d-xl-none bi bi-list"></i>
-
-    <div class="profile-img">
-      <img src="assets/img/keshav2025.png" alt="" class="img-fluid rounded-circle">
+<!-- HERO -->
+<section id="hero" style="border-top:none;">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Mechatronics Engineering · University of Waterloo</p>
+    <h1 class="hero-name">Keshav<br/><em>Malhotra</em></h1>
+    <p class="hero-desc">Engineer building at the intersection of Robotics and AI. I turn ideas into real world projects; from autonomous robots to machine learning tools.</p>
+    <div class="hero-cta">
+      <a class="btn btn-dark"  href="#portfolio">View my work</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
     </div>
-
-    <a href="index.html" class="logo d-flex align-items-center justify-content-center">
-      <h1 class="sitename">Keshav Malhotra</h1>
-    </a>
-
-    <div class="social-links text-center">
-      <a href="https://www.youtube.com/@KeshavCreates1" target="_blank"><i class="bi bi-youtube"></i></a>
-      <a href="https://www.linkedin.com/in/keshavxmalhotra/" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
-      <a href="mailto:malhotrakeshav10@gmail.com" class="bi bi-envelope navicon"><i></i></a>
+  </div>
+  <div class="hero-right">
+    <img src="assets/img/keshav2025.png" alt="Keshav Malhotra"/>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      scroll
     </div>
+  </div>
+</section>
 
-    <nav id="navmenu" class="navmenu">
-      <ul>
-        <li><a href="#hero"><i class="bi bi-house navicon active"></i>Home</a></li>
-        <li><a href="#about"><i class="bi bi-person navicon"></i> About</a></li>
-        <li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
-        <li><a href="#contact-me"><i class="bi bi-envelope navicon"></i> Contact</a></li>
-        <li><a href="resume/Keshav_Malhotra_Software_Resume_2026.pdf" target ="_blank"><i class="bi bi-circle navicon"></i>  Resume</a></li>
-      </ul>
-    </nav>
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner">
 
-  </header>
-
-  <main class="main">
-
-    <!-- Hero Section -->
-    <section id="hero" class="ps-4 hero section dark-background">
-      <img src="assets//img/waterlooPic.jpeg" alt="" data-aos="fade-in" class="">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <h2>Keshav Malhotra</h2>
-        <p> <span class="typed" data-typed-items="Mechatronics Engineer @ UWaterloo, Programmer, Leader"></span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
+    <div class="about-sticky reveal">
+      <img class="about-photo" src="assets/img/waterlooPic.jpeg" alt="University of Waterloo"/>
+      <div class="about-quick">
+        <a class="about-quick-item" href="mailto:malhotrakeshav10@gmail.com">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M1 4l7 5 7-5M1 4v8a1 1 0 001 1h12a1 1 0 001-1V4a1 1 0 00-1-1H2a1 1 0 00-1 1z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          malhotrakeshav10@gmail.com
+        </a>
+        <a class="about-quick-item" href="https://linkedin.com/in/keshavxmalhotra" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 01.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
+          linkedin.com/in/keshavxmalhotra
+        </a>
+        <a class="about-quick-item" href="https://github.com/KeshavMalhotra10" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          github.com/KeshavMalhotra10
+        </a>
+        <div class="about-quick-item">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 8.5a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" stroke-width="1.3"/><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+          Waterloo, Ontario
+        </div>
       </div>
-    </section><!-- /Hero Section -->
+    </div>
 
-    <!-- About Section -->
-    <section id="about" class="ps-4 about section">
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>About</h2>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row gy-4 justify-content-center">
-          <div class="col-lg-4">
-            <img src="assets/img/keshav2025.png" class="aboutPictureSize rounded-4 shadow-lg img-fluid w-100 object-fit-cover border img-fluid" alt="">
+    <div class="about-content">
+      <div class="sec-label">About</div>
+      <div class="about-bio reveal">
+        <p>Hi, I'm Keshav — a Mechatronics Engineering student at the University of Waterloo with a passion for building things involving both the software and hardware side. Whether it's programming an autonomous robot or training a machine learning model, I love turning a problem into a working solution.</p>
+        <p>I'm drawn to projects where I have to learn something new to finish them. I've built everything from hospital navigation robots to RAG-powered AI tools, and I'm always looking for the next challenge. Outside of engineering, I enjoy creating video content and playing the guitar.</p>
+      </div>
+      <div class="reveal">
+        <p class="skills-heading">Skills &amp; Tools</p>
+        <div class="skills-grid">
+          <div class="skill-cell">
+            <p class="skill-cell-label">Languages</p>
+            <p class="skill-cell-val">C++, Python, Java, JavaScript, HTML/CSS, SQL</p>
           </div>
-          <div class="col-lg-8 content">
-            <h2 class="px-2">My Interests</h2>
-            <p class="text-5xl px-2 fst-italic py-3 custom-width">
-              Hi, I'm Keshav Malhotra. I'm studying Mechatronics Engineering at the University of Waterloo, you can find me tinkering with robotics and AI. I love working on hands-on projects, researching new ideas, and finding real-world applications for emerging tech.
-
-              If you're interested in my work or want to connect, feel free to reach out on LinkedIn or send me an email.
-            </p>
+          <div class="skill-cell">
+            <p class="skill-cell-label">Frameworks</p>
+            <p class="skill-cell-val">React, Flask, Streamlit, LangChain</p>
+          </div>
+          <div class="skill-cell">
+            <p class="skill-cell-label">ML / AI</p>
+            <p class="skill-cell-val">PyTorch, Pandas, Scikit-learn, RAG</p>
+          </div>
+          <div class="skill-cell">
+            <p class="skill-cell-label">Mechanical</p>
+            <p class="skill-cell-val">Solidworks, Fusion360, Autocad</p>
           </div>
         </div>
       </div>
-    </section><!-- /About Section -->
-
-   <!-- Portfolio Section -->
-   <section id="portfolio" class="ps-4 portfolio section light-background">
-    <!-- Section Title -->
-    <div class="container section-title" data-aos="fade-up">
-      <h2>Portfolio</h2>
-      <p style="font-size:20px;">Explore my recent projects</p>
-    </div><!-- End Section Title -->
-
-    <div class="container">
-      <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-
-        <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-          <li data-filter="*" class="filter-active">All</li>
-          <li data-filter=".filter-mechanical">Mechanical</li>
-          <li data-filter=".filter-programming">Programming</li>
-          <li data-filter=".filter-video">Video</li>
-        </ul><!-- End Portfolio Filters -->
-
-        <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
-  
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-mechanical">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/portfolio/thumbnailForNavBot.png" class="img-fluid" alt="">
-              <div class="portfolio-info" onclick="window.location.href='navbot.html'" style="cursor: pointer;">
-                <h4>Mechanical 1</h4>
-                <p>NavBot: Hospital Navigation Robot</p>
-                <a href="assets/img/portfolio/thumbnailForNavBot.png" title="Mechanical 1" data-gallery="portfolio-gallery-mechanical" class="glightbox preview-link" onclick="event.stopPropagation();"><i class="bi bi-zoom-in"></i></a>
-                <a href="navbot.html" title="More Details" class="details-link" onclick="event.stopPropagation();"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-video">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/portfolio/roboventure.jpeg" class="img-fluid" alt="">
-              <div class="portfolio-info" onclick="window.location.href='roboventure.html'" style="cursor: pointer;">
-                <h4>Video 2</h4>
-                <p>Roboventure Community Event</p>
-                <a href="assets/img/portfolio/roboventure.jpeg" title="Video 2" data-gallery="portfolio-gallery-video" class="glightbox preview-link" onclick="event.stopPropagation();"><i class="bi bi-zoom-in"></i></a>
-                <a href="roboventure.html" title="More Details" class="details-link" onclick="event.stopPropagation();"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-programming">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/portfolio/KeshavBot.png" class="img-fluid" alt="">
-              <div class="portfolio-info" onclick="window.location.href='chatbot.html'" style="cursor: pointer;">
-                <h4>Program 5</h4>
-                <p>KeshavBOT</p>
-                <a href="assets/img/portfolio/KeshavBot.png" title="Program 5" data-gallery="portfolio-gallery-programming" class="glightbox preview-link" onclick="event.stopPropagation();"><i class="bi bi-zoom-in"></i></a>
-                <a href="chatbot.html" title="More Details" class="details-link" onclick="event.stopPropagation();"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-programming">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/portfolio/heartDisease.jpeg" class="img-fluid" alt="">
-              <div class="portfolio-info" onclick="window.location.href='heartDisease.html'" style="cursor: pointer;">
-                <h4>Program 1</h4>
-                <p>Using AI to Predict Heart Disease</p>
-                <a href="assets/img/portfolio/heartDisease.jpeg" title="Program 1" data-gallery="portfolio-gallery-programming" class="glightbox preview-link" onclick="event.stopPropagation();"><i class="bi bi-zoom-in"></i></a>
-                <a href="heartDisease.html" title="More Details" class="details-link" onclick="event.stopPropagation();"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-programming">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/portfolio/titanic.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info" onclick="window.location.href='titanic.html'" style="cursor: pointer;">
-                <h4>Program 4</h4>
-                <p>Titanic Survival AI Prediction</p>
-                <a href="assets/img/portfolio/titanic.jpg" title="Program 4" data-gallery="portfolio-gallery-programming" class="glightbox preview-link" onclick="event.stopPropagation();"><i class="bi bi-zoom-in"></i></a>
-                <a href="titanic.html" title="More Details" class="details-link" onclick="event.stopPropagation();"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-programming">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/portfolio/flashcardgen.png" class="img-fluid" alt="">
-              <div class="portfolio-info" onclick="window.location.href='flashcardgen.html'" style="cursor: pointer;">
-                <h4>Program 3</h4>
-                <p>AI Flashcard Generator</p>
-                <a href="assets/img/portfolio/flashcardgen.png" title="Program 3" data-gallery="portfolio-gallery-programming" class="glightbox preview-link" onclick="event.stopPropagation();"><i class="bi bi-zoom-in"></i></a>
-                <a href="flashcardgen.html" title="More Details" class="details-link" onclick="event.stopPropagation();"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-programming">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/portfolio/image-text.jpeg" class="img-fluid" alt="">
-              <div class="portfolio-info" onclick="window.location.href='image-text.html'" style="cursor: pointer;">
-                <h4>Program 2</h4>
-                <p>Image-Text-Speech Converter</p>
-                <a href="assets/img/portfolio/image-text.jpeg" title="Program 2" data-gallery="portfolio-gallery-programming" class="glightbox preview-link" onclick="event.stopPropagation();"><i class="bi bi-zoom-in"></i></a>
-                <a href="image-text.html" title="More Details" class="details-link" onclick="event.stopPropagation();"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-video">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/portfolio/OpenHouse1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info" onclick="window.location.href='openHouse2.html'" style="cursor: pointer;">
-                <h4>Video 1</h4>
-                <p>Senator O'Connor Open House Video 2024</p>
-                <a href="assets/img/portfolio/OpenHouse1.jpg" title="Video 1" data-gallery="portfolio-gallery-video" class="glightbox preview-link" onclick="event.stopPropagation();"><i class="bi bi-zoom-in"></i></a>
-                <a href="openHouse2.html" title="More Details" class="details-link" onclick="event.stopPropagation();"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-         
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/portfolio/randomPass.png" class="img-fluid" alt="">
-              <div class="portfolio-info" onclick="window.location.href='randomPass.html'" style="cursor: pointer;">
-                <h4>Program 6</h4>
-                <p>Random Password Generator</p>
-                <a href="assets/img/portfolio/randomPass.png" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link" onclick="event.stopPropagation();"><i class="bi bi-zoom-in"></i></a>
-                <a href="randomPass.html" title="More Details" class="details-link" onclick="event.stopPropagation();"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/portfolio/comingsoon.jpeg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Coming soon</h4>
-                <p>Coming soon</p>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
-
-        </div><!-- End Portfolio Container -->
-      </div>
     </div>
-  </section><!-- /Portfolio Section -->
 
-    <!-- Contact Section -->
-    <section id="contact-me" class="px-5">
-      <div class="container">
-        <!-- Section Title -->
-        <div class="row mb-5" data-aos="fade-up">
-          <div class="col-12 text-center">
-            <h2 class="display-4 fw-bold mb-3">Contact Me</h2>
-            <div class="title-underline bg-primary mx-auto" style="width: 80px; height: 3px;"></div>
-          </div>
-        </div>
-    
-        <div class="row g-4" data-aos="fade-up" data-aos-delay="100">
-          <!-- Contact Info Card -->
-          <div class="col-lg-4">
-            <div class="card h-100 border-0 shadow-sm bg-gradient" style="background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);">
-              <div class="card-body text-white p-4 p-xl-5">
-                <h3 class="fs-2 fw-bold mb-4">Let's Connect</h3>
-                
-                <!-- Contact Info Items -->
-                <div class="contact-info ps-2">
-                  <div class="d-flex align-items-center mb-4">
-                    <div class="contact-icon bg-white bg-opacity-25 rounded-circle p-2 me-3">
-                      <i class="bi bi-envelope fs-4 text-black"></i>
-                    </div>
-                    <div class="text-start">
-                      <h5 class="mb-1 fw-bold mb-1">Email</h5>
-                      <p class="text-dark">malhotrakeshav10@gmail.com</p>
-                    </div>
-                  </div>
-                  
-                  <div class="d-flex align-items-center mb-4">
-                    <div class="contact-icon bg-white bg-opacity-25 rounded-circle p-2 me-3">
-                      <i class="bi bi-geo-alt fs-4 text-black"></i>
-                    </div>
-                    <div>
-                      <h5 class="fw-bold mb-1">Location</h5>
-                      <p class="mb-0 text-dark">Waterloo, On</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-    
-          <!-- Contact Form -->
-          <div class="col-lg-8">
-            <div class="card border-0 shadow-sm h-100">
-              <div class="card-body p-4 p-xl-5">
-                <form class="contact-form" action="https://formspree.io/f/xanqppqv" method="post">
-                  <div class="row g-4">
-                    <div class="col-md-6">
-                      <div class="form-floating">
-                        <input type="text" class="form-control" name="name" placeholder="Your Name" required>
-                        <label for="nameInput">Your Name</label>
-                      </div>
-                    </div>
-                    
-                    <div class="col-md-6">
-                      <div class="form-floating">
-                        <input type="email" class="form-control" name="email" placeholder="Your Email" required>
-                        <label for="emailInput">Your Email</label>
-                      </div>
-                    </div>
-    
-                    <div class="col-12">
-                      <div class="form-floating">
-                        <input type="text" class="form-control" name="subject" placeholder="Subject" required>
-                        <label for="subjectInput">Subject</label>
-                      </div>
-                    </div>
-    
-                    <div class="col-12">
-                      <div class="form-floating">
-                        <textarea class="form-control" name="message" placeholder="Message" style="height: 180px" required></textarea>
-                        <label for="messageInput">Message</label>
-                      </div>
-                    </div>
-    
-                    <!-- Form Status Messages -->
-                    <div class="col-12">
-                      <div class="loading d-none">Loading...</div>
-                      <div class="error-message d-none"></div>
-                      <div class="sent-message d-none">Your message has been sent. Thank you!</div>
-                    </div>
-    
-                    <div class="col-12">
-                      <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 py-3">
-                        Send Message
-                        <i class="bi bi-arrow-right ms-2"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="inner">
+    <div class="sec-label">Work</div>
+    <div class="portfolio-top reveal">
+      <h2 class="sec-title">Selected Projects</h2>
+      <div class="filters" id="filters"></div>
+    </div>
+    <div class="portfolio-grid reveal" id="portfolio-grid"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="inner">
+
+    <div class="contact-left reveal">
+      <div class="sec-label">Contact</div>
+      <h2 class="sec-title">Let's connect</h2>
+      <p class="contact-desc">I'm always open to new opportunities, collaborations, or just a good conversation about tech and engineering.</p>
+      <div class="contact-channels">
+        <a class="contact-channel" href="mailto:malhotrakeshav10@gmail.com">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 4l7 5 7-5M1 4v8a1 1 0 001 1h12a1 1 0 001-1V4a1 1 0 00-1-1H2a1 1 0 00-1 1z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><strong>Email</strong><span>malhotrakeshav10@gmail.com</span></div>
+        </a>
+        <a class="contact-channel" href="https://linkedin.com/in/keshavxmalhotra" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 01.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
+          <div><strong>LinkedIn</strong><span>linkedin.com/in/keshavxmalhotra</span></div>
+        </a>
+        <div class="contact-channel">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 8.5a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" stroke-width="1.3"/><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+          <div><strong>Location</strong><span>Waterloo, Ontario, Canada</span></div>
         </div>
       </div>
-    </section><!-- /Contact Section End -->
-
-  </main>
-
-  <footer id="footer" class="footer position-relative light-background">
-    <div class="container">
-      <div class="copyright text-center">
-        <p style='font-size:20px;'>© <span><strong></strong></span> <strong class="px-1 sitename">Keshav Malhotra 2025</strong>
-      </div>
     </div>
-  </footer>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <div class="reveal">
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/xanqppqv" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fname">Name</label>
+            <input class="form-input" type="text" id="fname" name="name" placeholder="Your name" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="femail">Email</label>
+            <input class="form-input" type="email" id="femail" name="email" placeholder="your@email.com" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fsubject">Subject</label>
+          <input class="form-input" type="text" id="fsubject" name="subject" placeholder="What's this about?"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fmessage">Message</label>
+          <textarea class="form-textarea" id="fmessage" name="message" placeholder="Your message..." required></textarea>
+        </div>
+        <div>
+          <button class="btn btn-dark" type="submit" id="submit-btn">Send message</button>
+        </div>
+        <p class="form-status" id="form-status"></p>
+      </form>
+    </div>
 
-  <!-- Preloader -->
-  <div id="preloader"></div>
+  </div>
+</section>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+<!-- FOOTER -->
+<footer>
+  <p class="footer-copy">© 2026 Keshav Malhotra</p>
+  <div class="footer-links">
+    <a href="https://github.com/KeshavMalhotra10" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/keshavxmalhotra" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="resume/Keshav_Malhotra_Software_Resume_2026.pdf" target="_blank" rel="noopener">Resume</a>
+  </div>
+</footer>
 
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/highlight.js"></script>
+<script>
+/* =============================================
+   PROJECT DATA
+   To add a project: add one object to this array.
+   To remove: delete the object. That's it.
+   ============================================= */
+var projects = [
+  { id:"jobfit",           title:"JobFit — AI Resume Analyzer",          category:"programming", thumbnail:"assets/img/portfolio/jobfitSS.png", tech:["Python","Flask","OpenAI","RAG"] },
+  { id:"navbot",           title:"NavBot: Hospital Navigation Robot",     category:"hardware",  thumbnail:"assets/img/portfolio/thumbnailForNavBot.png",               tech:["C++","VEX IQ", "Solidworks"] },
+  { id:"roboventure",      title:"Roboventure Robotics Workshop",           category:"hardware",       thumbnail:"assets/img/portfolio/roboventure.jpeg",                     tech:["Arduino", "Breadboarding", "C++"] },
+];
+
+var CAT = { mechanical:"Mechanical", programming:"Programming", video:"Video" };
+
+/* Build filter buttons */
+(function() {
+  var cats = ["all"];
+  projects.forEach(function(p) { if (cats.indexOf(p.category) === -1) cats.push(p.category); });
+
+  var filtersEl = document.getElementById("filters");
+  cats.forEach(function(cat) {
+    var btn = document.createElement("button");
+    btn.className = "filter-btn" + (cat === "all" ? " active" : "");
+    btn.textContent = cat === "all" ? "All" : (CAT[cat] || cat);
+    btn.addEventListener("click", function() {
+      document.querySelectorAll(".filter-btn").forEach(function(b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+      document.querySelectorAll(".pcard").forEach(function(c) {
+        c.classList.toggle("hidden", cat !== "all" && c.dataset.cat !== cat);
+      });
+    });
+    filtersEl.appendChild(btn);
+  });
+
+  /* Build project cards */
+  var grid = document.getElementById("portfolio-grid");
+  projects.forEach(function(p) {
+    var tags = p.tech.slice(0,3).map(function(t) { return '<span class="pcard-tag">'+t+'</span>'; }).join("");
+    var a = document.createElement("a");
+    a.className = "pcard";
+    a.href = "project.html?id=" + p.id;
+    a.dataset.cat = p.category;
+    a.innerHTML =
+      '<div class="pcard-thumb-wrap"><img class="pcard-thumb" src="'+p.thumbnail+'" alt="'+p.title+'" loading="lazy"/></div>'+
+      '<div class="pcard-body">'+
+        '<span class="pcard-cat">'+(CAT[p.category]||p.category)+'</span>'+
+        '<span class="pcard-title">'+p.title+'</span>'+
+        (tags ? '<div class="pcard-tags">'+tags+'</div>' : '')+
+      '</div>'+
+      '<svg class="pcard-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H6M13 3v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    grid.appendChild(a);
+  });
+})();
+
+/* Mobile nav */
+function closeMobile() { document.getElementById("mobile-menu").classList.remove("open"); }
+document.getElementById("hamburger").addEventListener("click", function() {
+  document.getElementById("mobile-menu").classList.toggle("open");
+});
+
+/* Active nav link on scroll */
+var secs = document.querySelectorAll("section[id]");
+var navAs = document.querySelectorAll(".nav-links a:not(.nav-resume)");
+window.addEventListener("scroll", function() {
+  var pos = window.scrollY + 80;
+  secs.forEach(function(s) {
+    if (pos >= s.offsetTop && pos < s.offsetTop + s.offsetHeight) {
+      navAs.forEach(function(a) { a.classList.toggle("active", a.getAttribute("href") === "#"+s.id); });
+    }
+  });
+}, { passive: true });
+
+/* Scroll reveal */
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll(".reveal").forEach(function(el) { obs.observe(el); });
+
+/* Contact form */
+var form      = document.getElementById("contact-form");
+var statusEl  = document.getElementById("form-status");
+var submitBtn = document.getElementById("submit-btn");
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+  submitBtn.textContent = "Sending...";
+  submitBtn.disabled = true;
+  fetch(form.action, { method:"POST", body: new FormData(form), headers:{ "Accept":"application/json" } })
+    .then(function(res) {
+      if (res.ok) {
+        statusEl.textContent = "Message sent — I'll be in touch soon.";
+        statusEl.className = "form-status ok";
+        form.reset();
+      } else { throw new Error(); }
+    })
+    .catch(function() {
+      statusEl.textContent = "Something went wrong. Email me directly instead.";
+      statusEl.className = "form-status err";
+    })
+    .finally(function() {
+      submitBtn.textContent = "Send message";
+      submitBtn.disabled = false;
+    });
+});
+</script>
+
 </body>
-
 </html>

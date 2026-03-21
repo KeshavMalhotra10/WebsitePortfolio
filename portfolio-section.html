@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Keshav Malhotra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #0c0d0f; --surface: #131416; --border: #1f2023; --accent: #c8f06e; --text: #e8e9eb; --muted: #6b6e75; --tag-bg: #1a1c1f; --card-hover: #181a1d; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; padding: 64px 48px; }
+    .portfolio-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; flex-wrap: wrap; gap: 24px; }
+    .portfolio-eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+    .portfolio-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.02em; line-height: 1.1; }
+    .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-btn { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.08em; padding: 7px 16px; border-radius: 4px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.18s; }
+    .filter-btn:hover { color: var(--text); border-color: var(--muted); }
+    .filter-btn.active { background: var(--accent); color: #0c0d0f; border-color: var(--accent); font-weight: 500; }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .project-card { position: relative; background: var(--surface); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: background 0.2s; overflow: hidden; }
+    .project-card:hover { background: var(--card-hover); }
+    .project-card.hidden { display: none; }
+    .card-thumb-wrap { overflow: hidden; border-bottom: 1px solid var(--border); }
+    .card-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; filter: grayscale(20%) brightness(0.85); transition: filter 0.3s, transform 0.4s; display: block; }
+    .project-card:hover .card-thumb { filter: grayscale(0%) brightness(1); transform: scale(1.03); }
+    .card-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .card-cat { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+    .card-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; line-height: 1.25; letter-spacing: -0.01em; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .card-tag { font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 9px; background: var(--tag-bg); border: 1px solid var(--border); border-radius: 3px; color: var(--muted); }
+    .card-arrow { position: absolute; bottom: 20px; right: 20px; opacity: 0; transform: translate(-4px, 4px); transition: opacity 0.2s, transform 0.2s; color: var(--accent); }
+    .project-card:hover .card-arrow { opacity: 1; transform: translate(0,0); }
+    @media (max-width: 640px) { body { padding: 40px 20px; } .portfolio-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<section id="portfolio">
+  <div class="portfolio-header">
+    <div>
+      <p class="portfolio-eyebrow">Work</p>
+      <h2 class="portfolio-title">Selected Projects</h2>
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
+  <div class="portfolio-grid" id="portfolio-grid"></div>
+</section>
+
+<script>
+var projects = [
+  { id: "navbot", title: "NavBot: Hospital Navigation Robot", category: "mechanical", thumbnail: "assets/img/portfolio/thumbnailForNavBot.png", tech: ["C++", "VEX IQ", "Solidworks"] },
+  { id: "roboventure", title: "Roboventure Community Event", category: "video", thumbnail: "assets/img/portfolio/roboventure.jpeg", tech: ["Arduino", "Breadboarding", "C++"] },
+  { id: "jobfit", title: "JobFit — AI Resume Analyzer", category: "programming", thumbnail: "assets/img/portfolio/jobfitSS.png", tech: ["Python", "Flask", "OpenAI"] },
+];
+
+var categoryLabel = { mechanical: 'Mechanical', programming: 'Programming', video: 'Video' };
+
+// Build filter buttons
+var categories = ['all'];
+projects.forEach(function(p) { if (categories.indexOf(p.category) === -1) categories.push(p.category); });
+var filtersEl = document.getElementById('filters');
+categories.forEach(function(cat) {
+  var btn = document.createElement('button');
+  btn.className = 'filter-btn' + (cat === 'all' ? ' active' : '');
+  btn.dataset.filter = cat;
+  btn.textContent = cat === 'all' ? 'All' : (categoryLabel[cat] || cat);
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.querySelectorAll('.project-card').forEach(function(card) {
+      card.classList.toggle('hidden', cat !== 'all' && card.dataset.category !== cat);
+    });
+  });
+  filtersEl.appendChild(btn);
+});
+
+// Render cards
+var grid = document.getElementById('portfolio-grid');
+projects.forEach(function(p) {
+  var tags = p.tech.slice(0, 3).map(function(t) { return '<span class="card-tag">' + t + '</span>'; }).join('');
+  var card = document.createElement('a');
+  card.className = 'project-card';
+  card.href = 'project.html?id=' + p.id;
+  card.dataset.category = p.category;
+  card.innerHTML =
+    '<div class="card-thumb-wrap"><img class="card-thumb" src="' + p.thumbnail + '" alt="' + p.title + '" loading="lazy"/></div>' +
+    '<div class="card-body">' +
+      '<span class="card-cat">' + (categoryLabel[p.category] || p.category) + '</span>' +
+      '<span class="card-title">' + p.title + '</span>' +
+      (tags ? '<div class="card-tags">' + tags + '</div>' : '') +
+    '</div>' +
+    '<svg class="card-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 14L14 4M14 4H7M14 4v7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  grid.appendChild(card);
+});
+</script>
+
+</body>
+</html>
