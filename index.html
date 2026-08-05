@@ -60,6 +60,7 @@ nav {
   color: var(--ink) !important; transition: background 0.2s, border-color 0.2s, color 0.2s !important;
 }
 .nav-resume:hover { background: var(--accent) !important; color: var(--accent-fg) !important; border-color: var(--accent) !important; }
+.nav-mobile-actions { display: none; align-items: center; gap: 12px; }
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
 .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.3s; }
 .mobile-menu {
@@ -70,6 +71,14 @@ nav {
 .mobile-menu a { font-size: 15px; color: var(--muted); }
 .mobile-menu a:hover { color: var(--ink); }
 .mobile-menu.open { display: flex; }
+.mobile-menu-resume {
+  font-family: var(--mono) !important; font-size: 13px !important;
+  letter-spacing: 0.04em; text-align: center;
+  background: var(--accent); color: var(--accent-fg) !important;
+  padding: 13px 20px; border-radius: 5px; margin-top: 6px;
+  transition: opacity 0.2s;
+}
+.mobile-menu-resume:hover { opacity: 0.85; color: var(--accent-fg) !important; }
 
 /* =============================================
    HERO
@@ -250,6 +259,7 @@ footer {
 }
 @media (max-width: 600px) {
   .nav-links { display: none; }
+  .nav-mobile-actions { display: flex; }
   .hamburger { display: flex; }
   .portfolio-grid { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: 1fr; }
@@ -270,16 +280,19 @@ footer {
     <li><a href="#contact">Contact</a></li>
     <li><a class="nav-resume" href="resume/KESHAV_MALHOTRA_2026_RESUME_PDF.pdf" target="_blank" rel="noopener">Resume ↗</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav-mobile-actions">
+    <a class="nav-resume" href="resume/KESHAV_MALHOTRA_2026_RESUME_PDF.pdf" target="_blank" rel="noopener">Resume ↗</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 <div class="mobile-menu" id="mobile-menu">
   <a href="#hero"      onclick="closeMobile()">Home</a>
   <a href="#about"     onclick="closeMobile()">About</a>
   <a href="#portfolio" onclick="closeMobile()">Work</a>
   <a href="#contact"   onclick="closeMobile()">Contact</a>
-  <a href="resume/Keshav_Malhotra_Software_Resume_2026.pdf" target="_blank" rel="noopener">Resume ↗</a>
+  <a class="mobile-menu-resume" href="resume/KESHAV_MALHOTRA_2026_RESUME_PDF.pdf" target="_blank" rel="noopener">Resume ↗</a>
 </div>
 
 <!-- HERO -->
@@ -432,7 +445,7 @@ footer {
   <div class="footer-links">
     <a href="https://github.com/KeshavMalhotra10" target="_blank" rel="noopener">GitHub</a>
     <a href="https://linkedin.com/in/keshavxmalhotra" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="resume/Keshav_Malhotra_Software_Resume_2026.pdf" target="_blank" rel="noopener">Resume</a>
+    <a href="resume/KESHAV_MALHOTRA_2026_RESUME_PDF.pdf" target="_blank" rel="noopener">Resume</a>
   </div>
 </footer>
 
