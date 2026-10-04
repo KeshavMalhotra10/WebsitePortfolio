@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Real-Time Data Segmentation Under a Latency Constraing - Keshav Malhotra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230a0f1c'/><text x='50' y='73' font-size='62' font-weight='700' font-family='Arial,Helvetica,sans-serif' fill='%23ff6a3d' text-anchor='middle'>K</text></svg>">
+  <link rel="stylesheet" href="assets/css/theme.css"/>
+  <style>
+:root { --max: 820px; }
+body { min-height: 100vh; }
+
+.hero { padding: 140px var(--gap) 56px; max-width: var(--max); margin: 0 auto; }
+.hero-cat { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+.hero-title { font-weight: 600; font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: 1.1; letter-spacing: -0.035em; margin-bottom: 16px; }
+.hero-sub { font-size: 1rem; color: var(--muted); line-height: 1.6; margin-bottom: 28px; max-width: 640px; }
+.hero-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+
+.divider { width: 100%; height: 1px; background: var(--border); }
+.content { max-width: var(--max); margin: 0 auto; padding: 0 var(--gap) 100px; }
+
+section.case-sec { padding: 56px 0; border-bottom: 1px solid var(--border); }
+section.case-sec:last-of-type { border-bottom: none; }
+.sec-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+.sub-title { font-weight: 600; font-size: 1.2rem; letter-spacing: -0.015em; margin: 28px 0 10px; }
+.body-text { font-size: 1rem; line-height: 1.75; color: var(--ink); }
+.body-text + .body-text { margin-top: 16px; }
+.body-text.muted { color: var(--muted); }
+.emphasis-line {
+  font-weight: 500; font-size: 1.15rem; line-height: 1.6;
+  padding: 4px 0 4px 18px; border-left: 2px solid var(--accent); margin: 20px 0;
+}
+ul.plain-list { list-style: none; margin: 16px 0; display: flex; flex-direction: column; gap: 10px; }
+ul.plain-list li { font-size: 1rem; line-height: 1.7; padding-left: 20px; position: relative; }
+ul.plain-list li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+ol.step-list { margin: 16px 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 18px; }
+ol.step-list li { display: flex; gap: 16px; font-size: 1rem; line-height: 1.75; }
+.step-num { font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; color: var(--accent); flex: none; padding-top: 3px; }
+
+table.data-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.92rem; }
+table.data-table th, table.data-table td { text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+table.data-table th { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--surface); }
+table.data-table td { color: var(--ink); }
+.table-wrap { overflow-x: auto; }
+
+.result-note { font-size: 1rem; line-height: 1.8; margin-top: 16px; }
+.result-note strong { font-weight: 500; }
+
+.credits { font-size: 0.92rem; line-height: 1.8; color: var(--muted); }
+
+@media (max-width: 640px) {
+  :root { --gap: 22px; }
+  .hero { padding-top: 108px; }
+}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Keshav Malhotra</a>
+  <a class="nav-back" href="index.html#portfolio">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    All Projects
+  </a>
+</nav>
+
+<div class="hero">
+  <p class="hero-cat">Research · Machine Learning</p>
+  <h1 class="hero-title">Real-Time Segmentation with Limited Training Frames and a 50ms latency requirement</h1>
+  <p class="hero-sub">Co-op term, Posluns Centre for Image Guided Innovation and Therapeutic Intervention (PCIGITI), The Hospital for Sick Children</p>
+  <div class="hero-tags">
+    <span class="tag">Computer Vision</span>
+    <span class="tag">PyTorch</span>
+    <span class="tag">U-Net</span>
+    <span class="tag">ResNet-34</span>
+    <span class="tag">Transfer Learning</span>
+    <span class="tag">OpenCV</span>
+    <span class="tag">Real-Time Inference</span>
+  </div>
+</div>
+
+<div class="divider" style="max-width: var(--max); margin: 0 auto;"></div>
+
+<div class="content">
+
+  <section class="case-sec">
+    <p class="body-text">A machine learning write-up on building a real-time segmentation model for a low-contrast grayscale video stream, with almost no labeled data and a hard latency requirement. Over one work term, I went from ideation to shipping a real-world product. My first solution entailed a pixel-thresholding baseline, through a hand-tuned pipeline designed to catch false positives, to a learned U-Net detector, and then finally working on making its evaluation trustworthy and the inference extremely fast.</p>
+  </section>
+
+  <section class="case-sec">
+    <p class="sec-label">The ML Task</p>
+    <p class="body-text">Watch a live, low-contrast grayscale video stream and detect the moment an injected dark fluid spreads into a user-defined region of the image. Three properties made it challenging:</p>
+    <ul class="plain-list">
+      <li><strong>Almost no labeled data.</strong>No data for this task existed, so I had to create data from physical simulations, and annotate afterwards.</li>
+      <li><strong>Extreme class imbalance.</strong> The signal is a small patch of darker pixels in an otherwise unchanged frame.</li>
+      <li><strong>A tight latency and precision budget.</strong> Detections have to arrive faster than a person could notice them, without producing enough false alarms that the output gets ignored.</li>
+    </ul>
+    <p class="emphasis-line">Can you detect a specific kind of local darkening inside a region of interest, fast enough to be useful, without drowning the user in false alarms?</p>
+    <p class="body-text">The false positives were the most important consideration for the next 4 months.</p>
+  </section>
+
+  <section class="case-sec">
+    <p class="sec-label">Development Arc: Three Physical Data Sources</p>
+    <p class="body-text">I couldn't develop against real patient-data, so the work progressed through three physical flow simulations of increasing fidelity. From an ML point of view, each one is a different data distribution, and each exposed a different failure mode.</p>
+
+    <p class="sub-title">Simulator 1: the baseline</p>
+    <p class="body-text">The first prototype ran on a 3D-printed flow simulator built at SickKids by previous co-ops(thank you!). Detection here was deliberately naive: straight pixel thresholding, comparing the value of an empty channel against the value of dark fluid entering it.</p>
+    <p class="body-text">It worked as a proof of concept. It established that the signal was there and that real-time detection was worth pursuing. It also established a baseline that everything afterward had to beat.</p>
+
+    <p class="sub-title">Simulator 2 (Simone): a pulsatile model, and a useful negative result</p>
+    <p class="body-text">The second simulator, developed by Katie, Connor, Lucas, and Mattie (Simone Team at University of Waterloo), added a motorized pump to reproduce pulsatile flow rather than steady-state flow. It was closer to reality, and made the temporal behaviour of the signal more realistic. I imaged Simone under X-ray, and was surprised. The X-ray was filled with noise.</p>
+    <p class="body-text"><strong>This was the most unexpected result of the project.</strong> The motors and metallic hardware, alongside our fluid resevoir, that made the model physically realistic actually worsened our imaging result. Under X-ray they appear as high-contrast structures that swamp the frame, and detection became extremely inconsistent. The fidelity improvement that made the phantom better physically made it unusable as a computer vision target.</p>
+    <p class="body-text">Two things came out of this. First, a hard requirement that the detector explicitly reject metal-like pixels rather than hope they wouldn't appear. Second, the decision to migrate to a third simulator which would have no metal.</p>
+
+    <p class="sub-title">Simulator 3: the training platform</p>
+    <p class="body-text">The final development platform was a commercial flow simulator, radiolucent apart from the flow channels themselves, with branching geometry realistic enough to mimic human biology such that results would transfer. All feature development and model training from this point forward ran on this simulator.</p>
+  </section>
+
+  <section class="case-sec">
+    <p class="sec-label">The False-Positive Problem</p>
+    <p class="body-text">Once the detector was sensitive enough to catch real fluid, it caught everything else too. Moving hardware, shifts in the scene, compression artifacts, global brightness drift; all of it registered as darker pixel values.</p>
+    <p class="body-text">A false alarm is not a minor annoyance. An alerting system that cries wolf gets ignored, and an ignored system is worse than no system, because it consumes attention while providing nothing.</p>
+    <p class="body-text">I built a five-stage cascade where each stage is aimed at a specific, observed failure mode.</p>
+
+    <ol class="step-list">
+      <li><span class="step-num">01</span><span><strong>Baseline differencing.</strong> The baseline is a per-pixel median of the first 20 frames, collapsed into one reference frame. Median rather than mean, because it suppresses flicker, compression noise, and one-frame shadows instead of averaging them in. A pixel becomes a candidate only if it clears two conditions: darkened relative to baseline, <em>and</em> below an absolute intensity cutoff. Requiring both matters: with only the relative test, anything merely less bright than before qualifies.</span></li>
+      <li><span class="step-num">02</span><span><strong>Artifact rejection.</strong> Qualifying pixels form a binary mask, from which two categories are removed: structural edges (slight misalignment there produces apparent darkening that registers as fluid, but in actuality is not a real change) and metal-like pixels, identified by taking the extreme ends of the baseline distribution. Both are regions where baseline subtraction is unreliable, this stage is implemented from the learnings of the second simulator.</span></li>
+      <li><span class="step-num">03</span><span><strong>Region-level gates.</strong> Four whole-region checks, any of which failing causes an immediate rejection.
+        <div class="table-wrap"><table class="data-table">
+          <tr><th>Gate</th><th>Rejects</th></tr>
+          <tr><td>ROI restriction</td><td>Anything outside the user's chosen region</td></tr>
+          <tr><td>Detection surface</td><td>Regions whose baseline brightness indicates black margin, not imaged area</td></tr>
+          <tr><td>Border contact</td><td>Too much of the ROI border lit: a scene change or baseline mismatch, not a local pool</td></tr>
+          <tr><td>Coverage cap</td><td>Too much area darkening at once: global change, not local flow</td></tr>
+        </table></div>
+      </span></li>
+      <li><span class="step-num">04</span><span><strong>Blob analysis.</strong> The surviving mask is split into connected components and each is scored on size (area, bounding-box width and height), shape (fill ratio and aspect ratio, which separates a compact pool from a thin sliver or a solid rectangle), how many bounding-box edges it touches, overlap with the detection surface, and mean darkening. A component must pass every gate. Instrumenting this stage surfaced a real bug where valid large blobs were being silently discarded.</span></li>
+      <li><span class="step-num">05</span><span><strong>Temporal confirmation.</strong> A detection requires two consecutive hot frames. Importantly, a single cold frame does not reset the streak(this was causing a lot of flickering earlier), it costs one frame of credit instead. Strict resetting meant one dropped frame killed an otherwise-real detection run, which happened often enough to matter.</span></li>
+    </ol>
+
+    <p class="sub-title">Why it was replaced</p>
+    <p class="body-text">The false-positive pipeline worked, and building it was the most valuable part of the project, because each stage encodes something specific I learned about how this signal fails. But it was hand-tuned, and every threshold in it was a parameter that would need re-tuning for a new imaging setup or a new simulator.</p>
+    <p class="body-text"><strong>In the final system, the pipieline is gone entirely, replaced by a learned segmentation model.</strong> The model adopted the same skepticisms of the classical detection pipeline without the brittleness. Keeping the pipieline as a first-pass filter was tempting, but it reintroduced exactly the tuning burden the learned approach removed.</p>
+    <p class="body-text muted">I'm including it here because the failure taxonomy led to a more successful approach later.</p>
+  </section>
+
+  <section class="case-sec">
+    <p class="sec-label">The Learned Detector</p>
+    <p class="body-text"><strong>Architecture:</strong> U-Net with a ResNet-34 encoder, ImageNet-pretrained. Binary segmentation, one output class: fluid or no fluid.</p>
+    <p class="body-text">U-Net because the task needs precise spatial localization, not classification. Knowing that fluid is present somewhere in the frame is useless; what matters is <em>where</em>. The encoder-decoder structure with skip connections concatenates high-resolution features from the encoder directly into the decoder, preserving the fine spatial detail that repeated downsampling destroys, and the skip paths keep gradients from vanishing in early layers.</p>
+    <p class="body-text">ResNet-34 as the encoder for three reasons: ImageNet pretraining supplies useful low-level features (edges, tubular structures) for free, which matters enormously when the training set is 19 frames; its residual connections again help gradient flow; and it's deep enough to be detailed without the compute cost of ResNet-50 or ResNet-101, which matters when there's a hard latency budget.</p>
+    <p class="body-text"><strong>Loss: Binary cross-entropy + Dice.</strong> BCE alone fails on this task because of severe class imbalance. With roughly 200,000 background pixels against 5,000 fluid pixels in a typical frame, a model that predicts "no fluid" everywhere scores about 97.5% precision while being completely useless. Dice directly optimizes overlap, so total failure to detect fluid scores 0% regardless of how much background it gets right. BCE contributes a per-pixel probabilistic signal that heavily penalizes confident false positives. Together each covers the other's weakness and gives us more realistic metrics.</p>
+    <p class="body-text"><strong>Optimizer:</strong> AdamW, for adaptive learning rates and faster convergence. <strong>Checkpoint selection:</strong> best validation Dice.</p>
+  </section>
+
+  <section class="case-sec">
+    <p class="sec-label">Training on 19 Frames Without Overfitting</p>
+    <p class="body-text">The training set was <strong>19 hand-annotated frames</strong> drawn from two separate videos, labeled in CVAT and exported as COCO 1.0.</p>
+    <p class="body-text">Nineteen frames is small enough that the real risk isn't underfitting, it's producing an impressive number that means nothing due to learned patterns and memorization. Most of the methodology here exists to prevent that.</p>
+    <ul class="plain-list">
+      <li><strong>Held-out videos, not held-out frames.</strong> Train, validation, and test came from separate video sequences. Splitting randomly across frames would be deceptive: adjacent frames in a video are near-duplicates, so a random split effectively puts the test data in the training set.</li>
+      <li><strong>19-fold cross-validation.</strong> Eighteen frames train, one held out, repeated nineteen times, this is the protocol behind the metrics reported below, rather than a single fixed 70/15/15 split, precisely because a single split over 19 frames is too small a sample to trust on its own.</li>
+      <li><strong>Neighbour exclusion.</strong> For each fold, the held-out frame's temporal neighbour was set aside as the validation frame rather than left in training, closing the same leakage path within a fold.</li>
+      <li><strong>Untouched test set.</strong> The final held-out frames weren't examined until the end.</li>
+      <li><strong>Hard negative sampling.</strong> Training ran on 256px crops sampled to include both positives and hard negatives, so the model saw the confusing cases rather than mostly-empty background. (The 256px figure is the training crop size; inference below runs at the full 448×448 resolution, the two numbers describe different stages, not a contradiction.)</li>
+    </ul>
+  </section>
+
+  <section class="case-sec">
+    <p class="sec-label">Transfer Learning for Automatic Region Proposal</p>
+    <p class="body-text">Asking a user to mark regions by hand costs time, so I also built automatic proposal of the regions worth monitoring. The first approach used a YOLO model, which performed poorly at <strong>Dice 0.41</strong>.</p>
+    <p class="body-text">Replacing it with a U-Net/ResNet-34 encoder, ImageNet-pretrained and then fine-tuned on retinal vessel data, roughly doubled that to <strong>Dice 0.82</strong>. Retinal vessel segmentation is a well-resourced public task with the same underlying structure, thin branching tubular networks in low-contrast grayscale, which made it an unusually good transfer source for a domain with almost no labeled data (Thanks Connor for this insight).</p>
+  </section>
+
+  <section class="case-sec">
+    <p class="sec-label">Latency Engineering</p>
+    <p class="body-text">A detection that arrives after a person has already noticed the event is worthless. The initial pipeline ran at roughly <strong>350ms</strong> per detection. The target was <strong>~50ms</strong>, faster than a human blink.</p>
+    <p class="body-text">Four changes closed most of the gap:</p>
+    <ol class="step-list">
+      <li><span class="step-num">01</span><span><strong>Moved U-Net inference to GPU.</strong> The largest improvement since U-Net inference is spearheaded by matrix multiplication which GPU's perform in parallel.</span></li>
+      <li><span class="step-num">02</span><span><strong>Restricted inference to the regions of interest rather than full frames.</strong> The user has already declared what matters; segmenting the entire frame spends most of the budget on irrelevant regions.</span></li>
+      <li><span class="step-num">03</span><span><strong>Vectorized preprocessing in NumPy</strong>, removing per-pixel Python loops from the hot path and using optimized NumPy operations.</span></li>
+      <li><span class="step-num">04</span><span><strong>Dropped a redundant RTSP relay</strong> that was adding a full network hop for little reason. Not a clever optimization, just a pipeline stage that shouldn't have existed which was hurting the latency. Measuring the whole path end-to-end found this latency issue.</span></li>
+    </ol>
+    <p class="body-text">These changes brought detection to running 1-2 frames behind the live feed, a final measured residual delay of roughly <strong>45ms</strong>, which was successful in meeting the target.</p>
+  </section>
+
+  <section class="case-sec">
+    <p class="sec-label">Results</p>
+    <p class="body-text">Evaluated with a U-Net/ResNet-34 at 448×448 input, threshold 0.45, scored ROI-restricted against a hand-drawn region.</p>
+    <div class="table-wrap"><table class="data-table">
+      <tr><th>Metric</th><th>Simulated (7 frames)</th><th>Real-world (9 frames)</th></tr>
+      <tr><td>Dice</td><td>0.8514</td><td>0.8010</td></tr>
+      <tr><td>Precision</td><td>0.8178</td><td>0.7337</td></tr>
+      <tr><td>Recall</td><td>0.8878</td><td>0.8819</td></tr>
+      <tr><td>IoU</td><td>0.7412</td><td>0.6680</td></tr>
+    </table></div>
+    <p class="result-note">The result I'd point to is the second column. The model was trained <strong>entirely on simulated frames</strong> and had never seen real-world imaging, yet Dice fell only from 0.85 to 0.80, and recall held essentially flat at 0.88. For a monitoring application, recall is crucial, missing a real event is the failure mode with most consequences.</p>
+    <p class="result-note">Precision drops more sharply, from 0.82 to 0.73, which is the honest limitation. Real imaging contains structures the simulation doesn't produce, and the model flags some of them. That sim-to-real gap is the direct target of the next phase of work.</p>
+  </section>
+
+  <section class="case-sec">
+    <p class="sec-label">What I'd Do Next</p>
+    <ul class="plain-list">
+      <li><strong>Annotate the known confusers.</strong> A specific class of thin, high-contrast structures accounts for much of the precision gap; labeling it explicitly as a negative class should close a good part of it.</li>
+      <li><strong>Broaden the training distribution.</strong> Performance is strongest on one imaging mode and weaker on another; the model needs to hold up on both.</li>
+      <li><strong>Generalize to other imaging setups.</strong> Nothing in the architecture ties it to a single acquisition setup, so the same approach should extend to new ones.</li>
+    </ul>
+  </section>
+
+  <section class="case-sec">
+    <p class="sec-label">A Note on Scope</p>
+    <p class="body-text muted">This write-up covers the machine learning side only: model design, training methodology, evaluation, and latency work. Application details, demonstrations, and domain specifics are intentionally left out, and the results are reported at a level intended to describe the approach rather than reproduce the system.</p>
+    <p class="credits" style="margin-top: 20px;">Work completed at PCIGITI, The Hospital for Sick Children, with Connor Lee, Thomas Looi, Dale Podolsky, and Prakash Muthusami.</p>
+  </section>
+
+</div>
+
+</body>
+</html>
