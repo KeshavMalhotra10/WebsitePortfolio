@@ -6,57 +6,42 @@
   <title>Project — Keshav Malhotra</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230a0f1c'/><text x='50' y='73' font-size='62' font-weight='700' font-family='Arial,Helvetica,sans-serif' fill='%23ff6a3d' text-anchor='middle'>K</text></svg>">
-  <link rel="stylesheet" href="assets/css/theme.css"/>
-  <style>
-:root { --max: 960px; }
-body { min-height: 100vh; }
-
-.hero { padding: 140px var(--gap) 72px; max-width: var(--max); margin: 0 auto; }
-.hero-cat { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; opacity: 0; animation: up 0.6s 0.1s forwards; }
-.hero-title { font-weight: 600; font-size: clamp(2rem, 4.6vw, 3.4rem); line-height: 1.08; letter-spacing: -0.035em; margin-bottom: 28px; opacity: 0; animation: up 0.6s 0.2s forwards; }
-.hero-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 32px; opacity: 0; animation: up 0.6s 0.3s forwards; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; opacity: 0; animation: up 0.6s 0.4s forwards; }
-
-.divider { width: 100%; height: 1px; background: var(--border); max-width: var(--max); margin: 0 auto; }
-.content { max-width: var(--max); margin: 0 auto; padding: 0 var(--gap) 120px; }
-
-.media-wrap { padding: 64px 0 0; opacity: 0; animation: up 0.6s 0.5s forwards; }
-.video-box { width: 100%; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; border: 1px solid var(--border-strong); background: var(--surface); }
-.video-box iframe { width: 100%; height: 100%; border: none; display: block; }
-.img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 20px; }
-.img-grid img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: var(--radius); border: 1px solid var(--border-strong); transition: transform 0.3s; }
-.img-grid img:hover { transform: scale(1.02); }
-
-.about-section { padding: 56px 0; border-top: 1px solid var(--border); opacity: 0; animation: up 0.6s 0.6s forwards; }
-.sec-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
-.about-text { font-size: 1.05rem; line-height: 1.8; color: var(--ink); max-width: 680px; }
-
-.not-found { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; gap: 20px; }
-.not-found h1 { font-weight: 600; letter-spacing: -0.03em; font-size: 3rem; color: var(--muted); }
-
-@media (max-width: 640px) { :root { --gap: 24px; } .hero { padding-top: 110px; } }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23fbf9f3'/><text x='50' y='73' font-size='62' font-weight='700' font-family='Georgia,serif' fill='%231f3fae' text-anchor='middle'>K</text></svg>">
+  <link rel="stylesheet" href="assets/css/notebook.css"/>
 </head>
 <body>
 
-<nav>
-  <a class="nav-logo" href="index.html">Keshav Malhotra</a>
-  <a class="nav-back" href="index.html#portfolio">
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    All Projects
-  </a>
-</nav>
+<a class="skip" href="#main">Skip to content</a>
 
-<div id="app"></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="header-name" href="index.html">Keshav Malhotra</a>
+    <a class="header-back" href="index.html#projects">← All projects</a>
+    <div class="header-actions">
+      <a href="mailto:keshav.malhotra@uwaterloo.ca">Email</a>
+      <a href="resume/Keshav_Malhotra_Resume.pdf" target="_blank" rel="noopener">Resume ↗</a>
+    </div>
+  </div>
+</header>
+
+<main class="sheet" id="main">
+  <article class="column doc" id="app"></article>
+</main>
+
+<footer class="site-footer">
+  <p>© 2026 Keshav Malhotra</p>
+  <a href="https://github.com/KeshavMalhotra10" target="_blank" rel="noopener">GitHub</a>
+  <a href="https://linkedin.com/in/keshavxmalhotra" target="_blank" rel="noopener">LinkedIn</a>
+  <a href="resume/Keshav_Malhotra_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+</footer>
 
 <script>
 var projects = [
-  { id: "navbot", title: "NavBot: Hospital Navigation Robot", category: "mechanical", thumbnail: "assets/img/portfolio/thumbnailForNavBot.png", description: "Alongside a team of collaborators, I led the ideation and contributed to the development of NavBot, an autonomous hospital navigation robot built on the VEX IQ platform using C++. The project aimed to reduce repetitive workload for hospital staff, enable secure medication delivery, demonstrate practical autonomy with minimal hardware, and apply graph-based algorithms to real-world robotics problems. I played a key role in shaping the system’s overall design and direction, while contributing to the integration of sensor-based safety features such as obstacle detection and collision handling to ensure reliable operation in dynamic environments. NavBot operates as a fully self-contained system with a controller-based interface, showcasing the application of algorithms and embedded systems to improve efficiency in healthcare settings.", tech: ["C++", "VEX IQ", "Solidworks"], github: "https://github.com/KeshavMalhotra10/navBot", demo: null, medium: null, video: "https://www.youtube.com/watch?v=rkE9pB7YZUg", images: [] },
-  { id: "roboventure", title: "Roboventure Robotics Workshop", category: "video", thumbnail: "assets/img/portfolio/roboventure.jpeg", description: "I led RoboVenture, a community-driven robotics initiative designed to make STEM education accessible to underprivileged students, funded by Promise1000 Canada. Working alongside members of my robotics team, I developed and delivered hands-on workshops introducing participants to Arduino programming, basic circuitry, and mechanical tool usage. The program emphasized experiential learning, allowing students to build and experiment with real hardware while gaining confidence in technical skills. Through this initiative, I helped cultivate strong interest in robotics within the community, growing our team from 12 to over 50 members and establishing a sustainable pipeline of new, engaged students.", tech: ["Arduino", "Breadboarding", "C++"], github: null, demo: null, medium: null, video: "https://www.youtube.com/watch?v=sBWyKxTF7IU", images: [] },
-  { id: "jobfit", title: "JobFit — AI Resume Analyzer", category: "programming", thumbnail: "assets/img/portfolio/jobfitSS.png", description: "JobFit — AI Resume Analyzer. When applying to internships, I kept wondering if my resume would actually pass ATS filters, so I built a tool to find out. Paste a job posting and JobFit scores your resume against it, returning an ATS match score, missing keywords, strong experience matches, and the exact resume sections that drove the analysis. Under the hood it uses a RAG pipeline: your resume gets chunked, embedded, and retrieved via cosine similarity before being injected into a structured GPT prompt, so every result is traceable, not a black box.", tech: ["Python", "Flask", "OpenAI", "NumPy", "RAG", "Render"], github: "https://github.com/KeshavMalhotra10/JobFit_Resume_Analyzer", demo: "https://jobfit-3tgb.onrender.com/", medium: null, video: "https://youtu.be/wVwTmoXA0uU", images: [] },
-  { id: "heart-disease", title: "Using AI to predict Heart Disease", category: "programming", thumbnail: "assets/img/portfolio/gradientDescent.webp", description: "Developed a logistic regression model to predict heart disease risk using clinical data. Features are combined through a weighted dot product and passed through a sigmoid activation to produce probabilistic outputs. The model is optimized using gradient descent on a cost function, with experiments in learning rate and parameter initialization achieving ~90% accuracy.", tech: ["Machine Learning", "PyTorch", "NumPy", "Matplotlib", "Jupyter Notebook"], github:null, kaggle: "https://www.kaggle.com/code/keshavmalhotra10/keshav-heart-disease-algorithm?source=post_page-----5363555a0152---------------------------------------", medium:"https://medium.com/@malhotrakeshav10/using-a-i-to-predict-heart-disease-5363555a0152" , video:null , images: ["assets/img/portfolio/gradientDescent.webp"] },
+  { id: "navbot", year: "2025", title: "NavBot: Hospital Navigation Robot", category: "mechanical", thumbnail: "assets/img/portfolio/thumbnailForNavBot.png", description: "Alongside a team of collaborators, I led the ideation and contributed to the development of NavBot, an autonomous hospital navigation robot built on the VEX IQ platform using C++. The project aimed to reduce repetitive workload for hospital staff, enable secure medication delivery, demonstrate practical autonomy with minimal hardware, and apply graph-based algorithms to real-world robotics problems. I played a key role in shaping the system’s overall design and direction, while contributing to the integration of sensor-based safety features such as obstacle detection and collision handling to ensure reliable operation in dynamic environments. NavBot operates as a fully self-contained system with a controller-based interface, showcasing the application of algorithms and embedded systems to improve efficiency in healthcare settings.", tech: ["C++", "VEX IQ", "Solidworks"], github: "https://github.com/KeshavMalhotra10/navBot", demo: null, medium: null, video: "https://www.youtube.com/watch?v=rkE9pB7YZUg", images: [] },
+  { id: "roboventure", year: "2024", title: "Roboventure Robotics Workshop", category: "video", thumbnail: "assets/img/portfolio/roboventure.jpeg", description: "I led RoboVenture, a community-driven robotics initiative designed to make STEM education accessible to underprivileged students, funded by Promise1000 Canada. Working alongside members of my robotics team, I developed and delivered hands-on workshops introducing participants to Arduino programming, basic circuitry, and mechanical tool usage. The program emphasized experiential learning, allowing students to build and experiment with real hardware while gaining confidence in technical skills. Through this initiative, I helped cultivate strong interest in robotics within the community, growing our team from 12 to over 50 members and establishing a sustainable pipeline of new, engaged students.", tech: ["Arduino", "Breadboarding", "C++"], github: null, demo: null, medium: null, video: "https://www.youtube.com/watch?v=sBWyKxTF7IU", images: [] },
+  { id: "jobfit", year: "2026", title: "JobFit: AI Resume Analyzer", category: "programming", thumbnail: "assets/img/portfolio/jobfitSS.png", description: "JobFit — AI Resume Analyzer. When applying to internships, I kept wondering if my resume would actually pass ATS filters, so I built a tool to find out. Paste a job posting and JobFit scores your resume against it, returning an ATS match score, missing keywords, strong experience matches, and the exact resume sections that drove the analysis. Under the hood it uses a RAG pipeline: your resume gets chunked, embedded, and retrieved via cosine similarity before being injected into a structured GPT prompt, so every result is traceable, not a black box.", tech: ["Python", "Flask", "OpenAI", "NumPy", "RAG", "Render"], github: "https://github.com/KeshavMalhotra10/JobFit_Resume_Analyzer", demo: "https://jobfit-3tgb.onrender.com/", medium: null, video: "https://youtu.be/wVwTmoXA0uU", images: [] },
+  { id: "heart-disease", year: "2023", title: "Using AI to predict Heart Disease", category: "programming", thumbnail: "assets/img/portfolio/gradientDescent.webp", description: "Developed a logistic regression model to predict heart disease risk using clinical data. Features are combined through a weighted dot product and passed through a sigmoid activation to produce probabilistic outputs. The model is optimized using gradient descent on a cost function, with experiments in learning rate and parameter initialization achieving ~90% accuracy.", tech: ["Machine Learning", "PyTorch", "NumPy", "Matplotlib", "Jupyter Notebook"], github:null, kaggle: "https://www.kaggle.com/code/keshavmalhotra10/keshav-heart-disease-algorithm?source=post_page-----5363555a0152---------------------------------------", medium:"https://medium.com/@malhotrakeshav10/using-a-i-to-predict-heart-disease-5363555a0152" , video:null , images: ["assets/img/portfolio/gradientDescent.webp"] },
 
 ];
 
@@ -75,45 +60,39 @@ function render() {
   var app = document.getElementById("app");
 
   if (!p) {
-    app.innerHTML = '<div class="not-found"><h1>Project not found</h1><a class="btn btn-primary" href="index.html#portfolio">Back to work</a></div>';
+    app.innerHTML = '<div class="not-found"><h1>Project not found</h1><p><a href="index.html#projects">← Back to all projects</a></p></div>';
     return;
   }
 
   document.title = p.title + " — Keshav Malhotra";
 
   var vid = ytId(p.video);
-  var tags = p.tech.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join("");
-  var btns = [];
-  if (p.demo)   btns.push('<a class="btn btn-primary"  href="' + p.demo   + '" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1h6v6M13 1L6 8M1 13V8a1 1 0 011-1h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Live Demo</a>');
-  if (p.kaggle) btns.push('<a class="btn btn-ghost" href="' + p.kaggle + '" target="_blank" rel="noopener">' +
-  '<svg width="13" height="13" viewBox="0 0 32 32" fill="currentColor"><path d="M18.825 23.6l-6.05-6.875L18.9 9.975h-3.4l-5.7 6.525V4h-2.85v24h2.85v-7.05l1.325-1.4 5.875 8.45h3.475l-1.65-4.4z"/></svg>' +
-  'View on Kaggle</a>');
-  if (p.github) btns.push('<a class="btn btn-ghost" href="' + p.github + '" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>View on GitHub</a>');
-  if (p.medium) btns.push('<a class="btn btn-ghost" href="' + p.medium + '" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M9.025 8c0 2.485-1.984 4.5-4.432 4.5C2.148 12.5.125 10.485.125 8S2.148 3.5 4.593 3.5c2.448 0 4.432 2.015 4.432 4.5zm4.86 0c0 2.34-1.001 4.237-2.236 4.237-1.234 0-2.235-1.897-2.235-4.237s1-4.237 2.235-4.237C12.884 3.763 13.885 5.66 13.885 8zm2.09 0c0 2.096-.35 3.795-.783 3.795-.432 0-.782-1.699-.782-3.795s.35-3.795.783-3.795c.432 0 .782 1.699.782 3.795z"/></svg>Read on Medium</a>');
+  var links = [];
+  if (p.demo)   links.push('<a href="' + p.demo   + '" target="_blank" rel="noopener">Live demo ↗</a>');
+  if (p.kaggle) links.push('<a href="' + p.kaggle + '" target="_blank" rel="noopener">View on Kaggle ↗</a>');
+  if (p.github) links.push('<a href="' + p.github + '" target="_blank" rel="noopener">View on GitHub ↗</a>');
+  if (p.medium) links.push('<a href="' + p.medium + '" target="_blank" rel="noopener">Read on Medium ↗</a>');
 
   var media = "";
   if (vid || p.images.length) {
-    media = '<div class="media-wrap">';
-    if (vid) media += '<div class="video-box"><iframe src="https://www.youtube.com/embed/' + vid + '" allowfullscreen loading="lazy"></iframe></div>';
-    if (p.images.length) media += '<div class="img-grid">' + p.images.map(function(s) { return '<img src="' + s + '" alt="' + p.title + '" loading="lazy"/>'; }).join("") + '</div>';
+    media = '<div class="doc-media">';
+    if (vid) media += '<figure class="taped"><div class="video"><iframe src="https://www.youtube.com/embed/' + vid + '" title="' + p.title + ' video" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div></figure>';
+    media += p.images.map(function(s) { return '<figure class="taped"><img src="' + s + '" alt="' + p.title + '" loading="lazy"/></figure>'; }).join("");
     media += '</div>';
   }
 
   app.innerHTML =
-    '<div class="hero">' +
-      '<p class="hero-cat">' + (CAT_LABEL[p.category] || p.category) + '</p>' +
-      '<h1 class="hero-title">' + p.title + '</h1>' +
-      (tags ? '<div class="hero-tags">' + tags + '</div>' : '') +
-      (btns.length ? '<div class="hero-actions">' + btns.join("") + '</div>' : '') +
-    '</div>' +
-    '<div class="divider"></div>' +
-    '<div class="content">' +
-      media +
-      '<div class="about-section">' +
-        '<p class="sec-label">About this project</p>' +
-        '<p class="about-text">' + p.description + '</p>' +
-      '</div>' +
-    '</div>';
+    '<header class="doc-head">' +
+      '<p class="entry-line"><time datetime="' + p.year + '">' + p.year + '</time> — ' + (CAT_LABEL[p.category] || p.category).toLowerCase() + '</p>' +
+      '<h1>' + p.title + '</h1>' +
+      '<p class="doc-meta">' + p.tech.join(", ") + '</p>' +
+      (links.length ? '<p class="doc-links">' + links.join("") + '</p>' : '') +
+    '</header>' +
+    media +
+    '<section class="case-sec">' +
+      '<h2>About this project</h2>' +
+      '<p class="body-text">' + p.description + '</p>' +
+    '</section>';
 }
 
 render();
