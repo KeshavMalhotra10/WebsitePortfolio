@@ -211,7 +211,7 @@ p + p { margin-top: var(--line); }
 }
 .robot-layer .red .trail { stroke: var(--red-pen); stroke-width: 2.2; stroke-opacity: 0.9; }
 
-/* ---------- WRITE-UP PAGES (project.html, realtime-segmentation.html) ---------- */
+/* ---------- WRITE-UP PAGES (project.html, realtime-detection.html) ---------- */
 .header-back { color: var(--muted); text-decoration: none; margin-right: auto; }
 .header-inner:has(.header-back) .header-name { margin-right: 0; }
 .header-inner a { white-space: nowrap; }

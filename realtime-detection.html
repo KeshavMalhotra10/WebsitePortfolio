@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Real-Time Data Segmentation Under a Latency Constraint - Keshav Malhotra</title>
+  <title>Real Time Fluid Migration Detection — Keshav Malhotra</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet"/>
@@ -31,14 +31,14 @@
   <article class="column doc">
     <header class="doc-head">
       <p class="entry-line"><time datetime="2026">2026</time> — research · machine learning</p>
-      <h1>Real-Time Segmentation with Limited Training Frames and a 50ms latency requirement</h1>
+      <h1>Real Time Fluid Migration Detection</h1>
       <p class="doc-sub">Co-op term, Posluns Centre for Image Guided Innovation and Therapeutic Intervention (PCIGITI), The Hospital for Sick Children</p>
       <p class="doc-meta">Computer Vision, PyTorch, U-Net, ResNet-34, Transfer Learning, OpenCV, Real-Time Inference</p>
     </header>
 
 
   <section class="case-sec">
-    <p class="body-text">A machine learning write-up on building a real-time segmentation model for a low-contrast grayscale video stream, with almost no labeled data and a hard latency requirement. Over one work term, I went from ideation to shipping a real-world product. My first solution entailed a pixel-thresholding baseline, through a hand-tuned pipeline designed to catch false positives, to a learned U-Net detector, and then finally working on making its evaluation trustworthy and the inference extremely fast.</p>
+    <p class="body-text">A machine learning write-up on building a real-time detection model for a low-contrast grayscale video stream, with almost no labeled data and a hard latency requirement. Over one work term, I went from ideation to shipping a real-world product. My first solution entailed a pixel-thresholding baseline, through a hand-tuned pipeline designed to catch false positives, to a learned U-Net detector, and then finally working on making its evaluation trustworthy and the inference extremely fast.</p>
   </section>
 
   <section class="case-sec">
@@ -94,7 +94,7 @@
 
     <h3>Why it was replaced</h3>
     <p class="body-text">The false-positive pipeline worked, and building it was the most valuable part of the project, because each stage encodes something specific I learned about how this signal fails. But it was hand-tuned, and every threshold in it was a parameter that would need re-tuning for a new imaging setup or a new simulator.</p>
-    <p class="body-text"><strong>In the final system, the pipeline is gone entirely, replaced by a learned segmentation model.</strong> The model adopted the same skepticisms of the classical detection pipeline without the brittleness. Keeping the pipeline as a first-pass filter was tempting, but it reintroduced exactly the tuning burden the learned approach removed.</p>
+    <p class="body-text"><strong>In the final system, the pipeline is gone entirely, replaced by a learned detection model.</strong> The model adopted the same skepticisms of the classical detection pipeline without the brittleness. Keeping the pipeline as a first-pass filter was tempting, but it reintroduced exactly the tuning burden the learned approach removed.</p>
     <p class="body-text muted">I'm including it here because the failure taxonomy led to a more successful approach later.</p>
   </section>
 
